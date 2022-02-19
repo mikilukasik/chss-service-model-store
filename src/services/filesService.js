@@ -14,7 +14,11 @@ export const getModelNames = async () => {
         const modelContents = await fs.readFile(`models/${folderName}/model.json`, 'utf8');
         if (modelContents.indexOf('"activation":"selu"') >= 0) throw 'no selu';
       }
-      validModelNames.push(folderName);
+
+      // this is so mongo won't cry when the folder name is used as a key in a stored object
+      const folderAsMongoKey = folderName.replace(/\./g, '-').replace(/\$/g, '-');
+
+      validModelNames.push(folderAsMongoKey);
     } catch (e) {
       // /* */ console.log(e);
     }

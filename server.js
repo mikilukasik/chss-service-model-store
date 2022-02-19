@@ -15,7 +15,6 @@ export default () => {
   msg
     .connect()
     .then(() => {
-      console.log('MSG connected: ' + SERVICE_NAME);
       initRoutes({ msg });
     })
     .catch(console.error);
