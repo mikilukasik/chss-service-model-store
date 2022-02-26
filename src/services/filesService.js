@@ -16,7 +16,7 @@ export const getModelNames = async () => {
       }
 
       // this is so mongo won't cry when the folder name is used as a key in a stored object
-      const folderAsMongoKey = folderName.replace(/\./g, '-').replace(/\$/g, '-');
+      const folderAsMongoKey = folderName.replace(/\./g, '-dot-').replace(/\$/g, '-dollar-');
 
       validModelNames.push(folderAsMongoKey);
     } catch (e) {
