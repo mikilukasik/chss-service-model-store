@@ -1,0 +1,17 @@
+{
+  "modelDirName": "models/3sizesMovesV1_01",
+  "outUnits": 128,
+  "castlingIndex": 0,
+  "enPassantIndex": 0,
+  "inputLength": 12,
+  "batchSize": 1000,
+  "maxEpochs": 250,
+  "patience": 1,
+  "startTime": 1651622762534,
+  "recordsPerDataset": 250000,
+  "testRecordsPerDataset": 75000,
+  "needsWNext": true,
+  "needsPieceVals": true,
+  "learningRate": 0.00003,
+  "sourceModelDirName": "models/3sizesMovesV1"
+}

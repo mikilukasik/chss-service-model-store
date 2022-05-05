@@ -1,0 +1,17 @@
+{
+  "modelDirName": "models/3sizesV1Tiny_newDataSet_01",
+  "outUnits": 1,
+  "castlingIndex": 0,
+  "enPassantIndex": 0,
+  "inputLength": 12,
+  "batchSize": 1000,
+  "maxEpochs": 250,
+  "patience": 1,
+  "startTime": 1651621292825,
+  "recordsPerDataset": 250000,
+  "testRecordsPerDataset": 75000,
+  "needsWNext": true,
+  "needsPieceVals": true,
+  "learningRate": 0.00003,
+  "sourceModelDirName": "models/3sizesV1Tiny_04/0.09403-e1-1650874231079"
+}
