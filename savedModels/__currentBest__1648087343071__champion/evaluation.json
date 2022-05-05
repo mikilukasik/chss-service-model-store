@@ -1,0 +1,30 @@
+{
+  "loss": "0.00304",
+  "meanAbsoluteError": "0.03330",
+  "evalResult": [
+    {
+      "kept": false,
+      "isDisposedInternal": false,
+      "shape": [],
+      "dtype": "float32",
+      "size": 1,
+      "strides": [],
+      "dataId": {},
+      "id": 122859875,
+      "rankType": "0",
+      "scopeId": 66328268
+    },
+    {
+      "kept": false,
+      "isDisposedInternal": false,
+      "shape": [],
+      "dtype": "float32",
+      "size": 1,
+      "strides": [],
+      "dataId": {},
+      "id": 122859877,
+      "rankType": "0",
+      "scopeId": 66328269
+    }
+  ]
+}
