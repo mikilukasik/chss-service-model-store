@@ -34,18 +34,20 @@ export const fileExists = async (filename) => {
   }
 };
 
-export const getModelNames = async ({ withDots } = {}) => {
+export const getModelNames = async ({ withDots, requiredFiles = ['constants.json'] } = {}) => {
   const validModelNames = [];
   const allFolders = await fs.readdir(`models`);
 
   for (const folderName of allFolders) {
     try {
-      await fs.stat(`models/${folderName}/constants.json`);
-
-      if (!USE_SELU) {
-        const modelContents = await fs.readFile(`models/${folderName}/model.json`, 'utf8');
-        if (modelContents.indexOf('"activation":"selu"') >= 0) throw 'no selu';
+      for (const requiredFile of requiredFiles) {
+        await fs.stat(`models/${folderName}/${requiredFile}`);
       }
+
+      // if (!USE_SELU) {
+      //   const modelContents = await fs.readFile(`models/${folderName}/model.json`, 'utf8');
+      //   if (modelContents.indexOf('"activation":"selu"') >= 0) throw 'no selu';
+      // }
 
       // this is so mongo won't cry when the folder name is used as a key in a stored object
       validModelNames.push(withDots ? folderName : withoutDots(folderName));
