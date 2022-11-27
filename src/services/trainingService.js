@@ -1,7 +1,11 @@
 import { copyDir, getModelNames } from './filesService';
 
-export const withoutDots = (str) => str.replace(/\./g, '-dot-').replace(/\$/g, '-dollar-');
-export const withDots = (str) => str.replace(/-dot-/g, '.').replace(/-dollar-/g, '$');
+export const withoutDots = (str) => str.replace(/\./g, '-dot-').replace(/\$/g, '-dollar-').replace(/\//g, '-slash-');
+export const withDots = (str) =>
+  str
+    .replace(/-dot-/g, '.')
+    .replace(/-dollar-/g, '$')
+    .replace(/-slash-/g, '/');
 
 const createTrainingModel = async ({ modelName, version }) => {
   const newModelName = `__${version}__${Date.now()}__${modelName}`;

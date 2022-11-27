@@ -34,27 +34,43 @@ export const fileExists = async (filename) => {
   }
 };
 
-export const getModelNames = async ({ withDots, requiredFiles = ['constants.json'] } = {}) => {
+export const getModelNames = async ({ withDots, requiredFiles = ['constants.json'], folder = 'models' } = {}) => {
   const validModelNames = [];
-  const allFolders = await fs.readdir(`models`);
+  const filesInThisFolder = [];
 
-  for (const folderName of allFolders) {
-    try {
-      for (const requiredFile of requiredFiles) {
-        await fs.stat(`models/${folderName}/${requiredFile}`);
+  try {
+    const dirContents = (await fs.readdir(folder)).sort();
+
+    let i = dirContents.length;
+    while (i--) {
+      const file = path.resolve(folder, dirContents[i]);
+      const stat = await fs.stat(file);
+
+      if (stat && stat.isDirectory()) {
+        validModelNames.push(
+          ...(await getModelNames({ withDots, requiredFiles, folder: `${folder}/${dirContents[i]}` })),
+        );
+        continue;
       }
 
-      // if (!USE_SELU) {
-      //   const modelContents = await fs.readFile(`models/${folderName}/model.json`, 'utf8');
-      //   if (modelContents.indexOf('"activation":"selu"') >= 0) throw 'no selu';
-      // }
-
-      // this is so mongo won't cry when the folder name is used as a key in a stored object
-      validModelNames.push(withDots ? folderName : withoutDots(folderName));
-    } catch (e) {
-      // /* */ console.log(e);
+      filesInThisFolder.push(dirContents[i]);
     }
+
+    const validModelInDir = [...requiredFiles, 'model.json'].reduce(
+      (p, requiredFile) => p && filesInThisFolder.includes(requiredFile),
+      true,
+    );
+
+    // if (!USE_SELU) {
+    //   const modelContents = await fs.readFile(`models/${folderName}/model.json`, 'utf8');
+    //   if (modelContents.indexOf('"activation":"selu"') >= 0) throw 'no selu';
+    // }
+
+    // this is so mongo won't cry when the folder name is used as a key in a stored object
+    if (validModelInDir) validModelNames.push(withDots ? folder : withoutDots(folder));
+  } catch (e) {
+    // /* */ console.log(e);
   }
 
-  return validModelNames.sort();
+  return validModelNames.sort().map((str) => str.replace(/^models\//, ''));
 };
