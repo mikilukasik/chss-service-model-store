@@ -56,7 +56,8 @@ export const getModelNames = async ({ withDots, requiredFiles = ['constants.json
       filesInThisFolder.push(dirContents[i]);
     }
 
-    const validModelInDir = [...requiredFiles, 'model.json'].reduce(
+    const validModelInDir = requiredFiles.reduce(
+      // const validModelInDir = [...requiredFiles, 'model.json'].reduce(
       (p, requiredFile) => p && filesInThisFolder.includes(requiredFile),
       true,
     );

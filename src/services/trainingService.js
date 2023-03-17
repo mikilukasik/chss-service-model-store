@@ -1,6 +1,8 @@
 import { copyDir, getModelNames } from './filesService';
 
-export const withoutDots = (str) => str.replace(/\./g, '-dot-').replace(/\$/g, '-dollar-').replace(/\//g, '-slash-');
+export const withoutDots = (str) =>
+  str && str.replace(/\./g, '-dot-').replace(/\$/g, '-dollar-').replace(/\//g, '-slash-');
+
 export const withDots = (str) =>
   str
     .replace(/-dot-/g, '.')
